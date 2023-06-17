@@ -50,8 +50,8 @@ class _LoaderState extends State<Loader> with TickerProviderStateMixin {
       body: Container(
         color: const Color.fromARGB(255, 48, 48, 48),
         child: Column(
+
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             RotationTransition(
@@ -59,20 +59,20 @@ class _LoaderState extends State<Loader> with TickerProviderStateMixin {
               child: Container(
                 width: 100,
                 color: Colors.redAccent,
-                height: 300,
+                height: 400,
                 child: RotationTransition(
                   turns: _controller2,
                   child: Container(
-                    width: 100,
+                    width: 400,
                     color: Colors.red,
-                    height: 300,
+                    height: 400,
                   ),
                 ),
               ),
             ),
             Container(
               width: 140,
-              height: 100,
+              height: 140,
               padding: const EdgeInsets.only(top: 20.0),
               child: Image.asset("assets/images/logo.png", fit: BoxFit.contain),
             ),

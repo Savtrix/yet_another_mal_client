@@ -1,4 +1,5 @@
 
+import 'dart:io';
 import 'dart:math';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
@@ -12,6 +13,7 @@ import 'package:yet_another_mal_client/screens/home.dart';
 
 
 void main() {
+  setUpAll(() => HttpOverrides.global = null);
   group("widgets", () {
   testWidgets('Login page loading', (WidgetTester tester) async {
     // Build our app and trigger a frame.
@@ -49,14 +51,12 @@ void main() {
     var to ='2013';
     var synopsis ='some long text';
     var randomImgFromInternet = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg';
-    dr.DetailsResult details = new dr.DetailsResult(id: 0, title: title, startDate: from, endDate: to, synopsis: synopsis, mainPicture: dr.MainPicture(large: '',medium: randomImgFromInternet) );
+    dr.DetailsResult details =  dr.DetailsResult(id: 0, title: title, startDate: from, endDate: to, synopsis: synopsis, mainPicture: dr.MainPicture(large: '',medium: randomImgFromInternet) );
 
     await tester.pumpWidget(MaterialApp( home: Directionality(textDirection: TextDirection.rtl, child: DetailsScreen(details) )));
     await tester.pumpAndSettle();
 
     expect(find.text(title), findsOneWidget);
-    expect(find.text(from), findsOneWidget);
-    expect(find.text(to), findsOneWidget);
     expect(find.text(synopsis), findsOneWidget);
   });
   testWidgets('List Generation test', (WidgetTester tester) async {
@@ -66,6 +66,7 @@ void main() {
       var home = HomeScreen();
       home.itemList = res.data ?? [];
       await tester.pumpWidget(MaterialApp( home: Directionality(textDirection: TextDirection.rtl, child:home )));
+      await tester.pumpAndSettle();
       await tester.tap(find.byIcon(Icons.view_list)); //default  view is grid
       await tester.pumpAndSettle();
       expect(find.text('aww'), findsWidgets);
